@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRUD de Autores y Libros</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Listar todos los autores al cargar la página
+    listarAutores();
+
+    // Listar todos los libros al cargar la página
+    listarLibros();
+
+    // Función para listar todos los autores
+    function listarAutores() {
+        $.ajax({
+            url: 'listar_autores.php',  // Cambia esto por el archivo que maneja la consulta SQL
+            type: 'GET',
+            success: function(response) {
+                $('#lista-autores').html(response);
+            }
+        });
+    }
+
+    // Función para añadir un nuevo autor
+    $('#form-agregar-autor').submit(function(e) {
+        e.preventDefault();
+        var nombre = $('#nombre').val();
+        var apellido = $('#apellido').val();
+        var fechaNacimiento = $('#fecha_nacimiento').val();
+
+        $.ajax({
+            url: 'agregar_autor.php',  // Cambia esto por el archivo que maneja la inserción SQL
+            type: 'POST',
+            data: {
+                nombre: nombre,
+                apellido: apellido,
+                fecha_nacimiento: fechaNacimiento
+            },
+            success: function(response) {
+                listarAutores();
+                $('#form-agregar-autor')[0].reset();
+            }
+        });
+    });
+
+    // Función para editar un autor existente
+    function editarAutor(id) {
+        // Implementar según la lógica necesaria
+    }
+
+    // Función para eliminar un autor
+    function eliminarAutor(id) {
+        // Implementar según la lógica necesaria
+    }
+
+    // Función para listar todos los libros
+    function listarLibros() {
+        $.ajax({
+            url: 'listar_libros.php',  // Cambia esto por el archivo que maneja la consulta SQL
+            type: 'GET',
+            success: function(response) {
+                $('#lista-libros').html(response);
+            }
+        });
+    }
+
+    // Función para añadir un nuevo libro
+    $('#form-agregar-libro').submit(function(e) {
+        e.preventDefault();
+        var titulo = $('#titulo').val();
+        var fechaPublicacion = $('#fecha_publicacion').val();
+        var autorId = $('#autor_id').val();
+        var precio = $('#precio').val();
+
+        $.ajax({
+            url: 'agregar_libro.php',  // Cambia esto por el archivo que maneja la inserción SQL
+            type: 'POST',
+            data: {
+                titulo: titulo,
+                fecha_publicacion: fechaPublicacion,
+                autor_id: autorId,
+                precio: precio
+            },
+            success: function(response) {
+                listarLibros();
+                $('#form-agregar-libro')[0].reset();
+            }
+        });
+    });
+
+    // Función para editar un libro existente
+    function editarLibro(id) {
+        // Implementar según la lógica necesaria
+    }
+
+    // Función para eliminar un libro
+    function eliminarLibro(id) {
+        // Implementar según la lógica necesaria
+    }
+});
+</script>
+</head>
+<body>
+    <h1>CRUD de Autores</h1>
+
+    <!-- Formulario para añadir un nuevo autor -->
+    <form id="form-agregar-autor">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <br>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required>
+        <br>
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+        <br>
+        <button type="submit">Agregar Autor</button>
+    </form>
+
+    <!-- Lista de autores -->
+    <div id="lista-autores">
+        <!-- Aquí se mostrará la lista de autores -->
+    </div>
+
+    <hr>
+
+    <h1>CRUD de Libros</h1>
+    
+    <!-- Formulario para añadir un nuevo libro -->
+    <form id="form-agregar-libro">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" required>
+        <br>
+        <label for="fecha_publicacion">Fecha de Publicación:</label>
+        <input type="date" id="fecha_publicacion" name="fecha_publicacion" required>
+        <br>
+        <label for="autor_id">ID del Autor:</label>
+        <input type="number" id="autor_id" name="autor_id" required>
+        <br>
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" step="0.01" required>
+        <br>
+        <button type="submit">Agregar Libro</button>
+    </form>
+
+    <!-- Lista de libros -->
+    <div id="lista-libros">
+        <!-- Aquí se mostrará la lista de libros -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+    "name": "catador/p2exa",
+    "autoload": {
+        "psr-4": {
+            "Catador\\P2exa\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "catadorgreyhood",
+            "email": "armaged117@live.com.mx"
+        }
+    ],
+    "require": {}
+}
